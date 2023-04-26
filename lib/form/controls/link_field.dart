@@ -8,7 +8,8 @@ import 'package:frappe_app/model/common.dart';
 import 'package:frappe_app/utils/frappe_icon.dart';
 import 'package:frappe_app/views/form_view/form_view.dart';
 import 'package:frappe_app/widgets/form_builder_typeahead.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+//import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../model/doctype_response.dart';
 import '../../app/locator.dart';
@@ -63,7 +64,7 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
 
     if (f != null) {
       validators.add(
-        f(context),
+        f(context) as String? Function(dynamic f),
       );
     }
 
@@ -196,5 +197,11 @@ class _LinkFieldState extends State<LinkField> with Control, ControlInput {
             },
       ),
     );
+  }
+
+  void pushNewScreen(BuildContext context, {required FormView screen}) {
+    screen: FormView(
+        doctype: widget.doctypeField.options,
+        name: widget.doc![widget.doctypeField.fieldname]);
   }
 }

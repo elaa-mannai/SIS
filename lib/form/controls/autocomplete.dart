@@ -67,7 +67,8 @@ class _AutoCompleteState extends State<AutoComplete>
 
     if (f != null) {
       validators.add(
-        f(context),
+      //  f(context),
+        f(context) as String? Function(dynamic f),
       );
     }
 

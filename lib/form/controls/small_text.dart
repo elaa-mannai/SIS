@@ -29,7 +29,8 @@ class SmallText extends StatelessWidget with Control, ControlInput {
 
     if (f != null) {
       validators.add(
-        f(context),
+        // f(context)
+        f(context) as String? Function(dynamic f),
       );
     }
 

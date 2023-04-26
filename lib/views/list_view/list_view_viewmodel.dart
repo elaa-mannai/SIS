@@ -7,7 +7,9 @@ import 'package:frappe_app/model/desk_sidebar_items_response.dart';
 import 'package:frappe_app/model/desktop_page_response.dart';
 import 'package:frappe_app/views/form_view/form_view.dart';
 import 'package:injectable/injectable.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+//import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
 
 import '../../app/locator.dart';
 
@@ -401,4 +403,6 @@ class ListViewViewModel extends BaseViewModel {
           field.hidden != 1;
     }).toList();
   }
+
+  void pushNewScreen(BuildContext context, {required FormView screen, required bool withNavBar}) {}
 }

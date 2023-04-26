@@ -126,7 +126,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+//          throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw e;
@@ -171,7 +172,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+//          throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw e;
@@ -226,7 +228,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+    //      throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
         }
       } else {
         throw ErrorResponse();
@@ -322,7 +325,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+     //     throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw ErrorResponse();
@@ -369,7 +373,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+    //      throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
         }
       } else {
         throw e;
@@ -646,14 +651,15 @@ class DioApi implements Api {
           if (e.error is SocketException) {
             throw ErrorResponse(
               statusCode: HttpStatus.serviceUnavailable,
-              statusMessage: e.error.message,
+              statusMessage: e.error,
+             // statusMessage: e.error.message,
             );
-          } else {
-            throw ErrorResponse(
-              statusCode: e.error.statusCode,
-              statusMessage: e.error.statusMessage,
-            );
-          }
+          } //else {
+           // throw ErrorResponse(
+             // statusCode: e.error.statusCode,
+           //   statusMessage: e.error.statusMessage,
+          //  );
+         // }
         }
       } else {
         throw ErrorResponse();
@@ -715,7 +721,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+      //    throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw e;
@@ -859,7 +866,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+     //     throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw ErrorResponse();
@@ -995,7 +1003,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+   //       throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw ErrorResponse();
@@ -1043,7 +1052,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+   //       throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw ErrorResponse();
@@ -1079,7 +1089,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+    //      throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw ErrorResponse();
@@ -1115,7 +1126,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+        //  throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
         }
       } else {
         throw ErrorResponse();
@@ -1162,7 +1174,8 @@ class DioApi implements Api {
             statusMessage: error.message,
           );
         } else {
-          throw ErrorResponse(statusMessage: error.message);
+          throw ErrorResponse(statusMessage: error);
+    //      throw ErrorResponse(statusMessage: error.message);
         }
       } else {
         throw ErrorResponse();

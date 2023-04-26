@@ -9,7 +9,8 @@ import 'package:frappe_app/utils/loading_indicator.dart';
 import 'package:frappe_app/views/form_view/form_view.dart';
 import 'package:frappe_app/views/list_view/list_view.dart';
 import 'package:injectable/injectable.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+//import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../app/locator.dart';
 import '../../services/api/api.dart';
@@ -30,6 +31,7 @@ class DeskViewModel extends BaseViewModel {
   Map<String, List<DeskMessage>> modulesByCategory = {};
   late DesktopPageResponse desktopPage;
   ErrorResponse? error;
+
 
   switchModule(
     DeskMessage newModule,
@@ -188,7 +190,7 @@ class DeskViewModel extends BaseViewModel {
           withNavBar: true,
         );
       } else {
-        pushNewScreen(
+        pushNewScreen1(
           context,
           screen: CustomListView(
             meta: meta,
@@ -211,4 +213,8 @@ class DeskViewModel extends BaseViewModel {
       }
     }
   }
+
+  void pushNewScreen(BuildContext context, {required FormView screen, required bool withNavBar}) {}
+
+  void pushNewScreen1(BuildContext context, {required CustomListView screen, required bool withNavBar}) {}
 }

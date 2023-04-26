@@ -26,7 +26,9 @@ class ReadOnly extends StatelessWidget with Control, ControlInput {
     var f = setMandatory(doctypeField);
 
     if (f != null) {
-      validators.add(f(context));
+     // validators.add(f(context));
+      validators.add(f(context) as String? Function(dynamic p1));
+
     }
 
     return FormBuilderTextField(

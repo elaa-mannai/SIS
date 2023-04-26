@@ -148,16 +148,17 @@ class Awesombar extends StatelessWidget {
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0, bottom: 8),
-                    child: FlatButton(
+                    child: TextButton(
+                      style: flatButton,
+                    //  padding: EdgeInsets.zero,
+                    //  minWidth: 70,
                       child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                          color: FrappePalette.blue[500],
-                          fontWeight: FontWeight.w500,
-                        ),
+                      'Cancel',
+                      style: TextStyle(
+                        color: FrappePalette.blue[500],
+                        fontWeight: FontWeight.w500,
                       ),
-                      padding: EdgeInsets.zero,
-                      minWidth: 70,
+                    ),
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
                       },
@@ -171,6 +172,11 @@ class Awesombar extends StatelessWidget {
     );
   }
 }
+
+final ButtonStyle flatButton = TextButton.styleFrom(
+  padding: EdgeInsets.zero,
+  minimumSize: Size.fromWidth(70),
+);
 
 class SearchResults extends StatelessWidget {
   final List<AwesomeBarItem> awesomeBarItems;

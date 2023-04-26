@@ -5,12 +5,15 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../model/doctype_response.dart';
 
 class ControlInput {
-  String? Function(dynamic) Function(BuildContext, {String errorText})?
+//  String? Function(dynamic) Function(BuildContext, {String errorText})?
+
+  FormFieldValidator?
       setMandatory(
     DoctypeField doctypeField,
   ) {
     if (doctypeField.reqd == 1) {
-      return FormBuilderValidators.required;
+      //return FormBuilberValidators.required;
+      return FormBuilderValidators.required();
     } else {
       return null;
     }

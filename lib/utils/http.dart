@@ -60,6 +60,7 @@ Future<void> setBaseUrl(url) async {
   await DioHelper.init(url);
 }
 
+
 String getAbsoluteUrl(String url) {
   return Uri.encodeFull("${Config().baseUrl}$url");
 }

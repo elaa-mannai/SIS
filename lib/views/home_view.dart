@@ -8,7 +8,8 @@ import 'package:frappe_app/views/desk/desk_view.dart';
 import 'package:frappe_app/views/notification_view.dart';
 import 'package:frappe_app/views/profile_view.dart';
 import 'package:frappe_app/widgets/user_avatar.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+//import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -37,14 +38,15 @@ class _HomeViewState extends State<HomeView> {
     //     selectedIndex: _controller.index,
     //   ),
     // );
-    return PersistentTabView(
+    return Scaffold(
+        body: PersistentTabView(
       context,
       // controller: _controller,
       decoration: NavBarDecoration(boxShadow: [BoxShadow()]),
       screens: _buildScreens(),
       items: _navBarsItems(),
       navBarStyle: NavBarStyle.style5,
-    );
+    ));
   }
 
   List<Widget> _buildScreens() {
