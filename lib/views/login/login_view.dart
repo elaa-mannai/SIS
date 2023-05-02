@@ -66,8 +66,8 @@ class _LoginState extends State<Login> {
                               name: 'serverURL',
                               initialValue: model.savedCreds.serverURL,
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
-                                FormBuilderValidators.url(),
+                                FormBuilderValidators.required(context),
+                                FormBuilderValidators.url(context),
                               ]),
                               decoration: Palette.formFieldDecoration(
                                 label: "Server URL",
@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
                               name: 'usr',
                               initialValue: model.savedCreds.usr,
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(context),
                               ]),
                               decoration: Palette.formFieldDecoration(
                                 label: "Email Address",
@@ -223,7 +223,7 @@ class _VerificationBottomSheetViewState
                       control: FormBuilderTextField(
                         name: 'otp',
                         validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
+                          FormBuilderValidators.required(context),
                         ]),
                         decoration: Palette.formFieldDecoration(
                           label: "Verification",
@@ -335,7 +335,7 @@ class _PasswordFieldState extends State<PasswordField> {
             maxLines: 1,
             name: 'pwd',
             validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(),
+              FormBuilderValidators.required(context),
             ]),
             obscureText: _hidePassword,
             decoration: Palette.formFieldDecoration(

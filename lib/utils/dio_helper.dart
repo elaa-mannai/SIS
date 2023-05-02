@@ -20,8 +20,10 @@ class DioHelper {
     )..interceptors.add(
         CookieManager(cookieJar),
       );
-    dio?.options.connectTimeout = (60 * 1000) as Duration?;
-    dio?.options.receiveTimeout = (60 * 1000) as Duration?;
+ //   dio?.options.connectTimeout = (60 * 1000) as Duration?;
+   // dio?.options.receiveTimeout = (60 * 1000) as Duration?;
+    dio?.options.connectTimeout = (60 * 1000) as int;
+    dio?.options.receiveTimeout = (60 * 1000) as int;
   }
 
   static Future initCookies() async {

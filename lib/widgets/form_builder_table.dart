@@ -21,222 +21,216 @@ class FormBuilderTable<T> extends FormBuilderField<T> {
     FormFieldValidator<T>? validator,
     bool enabled = true,
   }) : super(
-          key: key,
-          name: name,
-          validator: validator,
-          initialValue: initialValue,
-          builder: (FormFieldState<dynamic> field) {
-            return FutureBuilder(
-              future: locator<Api>().getDoctype(doctype),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var value = (initialValue as List);
-                  var metaFields =
-                      (snapshot.data as DoctypeResponse).docs[0].fields;
-                  var tableFields = metaFields.where((field) {
-                    return field.inListView == 1;
-                  }).toList();
-                  var selectedRowsIdxs = [];
+    key: key,
+    name: name,
+    validator: validator,
+    initialValue: initialValue,
+    builder: (FormFieldState<dynamic> field) {
+      return FutureBuilder(
+        future: locator<Api>().getDoctype(doctype),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var value = (initialValue as List);
+            var metaFields =
+                (snapshot.data as DoctypeResponse).docs[0].fields;
+            var tableFields = metaFields.where((field) {
+              return field.inListView == 1;
+            }).toList();
+            var selectedRowsIdxs = [];
 
-                  var colCount = 3;
-                  List<JsonTableColumn> columns = [];
-                  var numFields = [];
+            var colCount = 3;
+            List<JsonTableColumn> columns = [];
+            var numFields = [];
 
-                  tableFields.forEach(
-                    (item) {
-                      columns.add(
-                        JsonTableColumn(
-                          item.fieldname,
-                          label: item.label,
-                        ),
-                      );
+            tableFields.forEach(
+                  (item) {
+                columns.add(
+                  JsonTableColumn(
+                    item.fieldname,
+                    label: item.label,
+                  ),
+                );
 
-                      if (["Float", "Int"].contains(item.fieldtype)) {
-                        numFields.add(item.label);
-                      }
-                    },
-                  );
-
-                  colCount =
-                      columns.length < colCount ? columns.length : colCount;
-
-                  if (value.isEmpty) {
-                    var v = {};
-
-                    tableFields.forEach(
-                      (tableField) {
-                        v[tableField.fieldname] = "";
-                      },
-                    );
-                    value.add(v);
-                  }
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      JsonTable(
-                        value,
-                        allowRowHighlight: true,
-                        rowHighlightColor: FrappePalette.grey[100],
-               //         onRowHold: (index) {
-                 //         var idx = selectedRowsIdxs.indexOf(index);
-                   //       if (idx != -1) {
-                     //       selectedRowsIdxs.removeAt(idx);
-                       //   } else {
-                         //   selectedRowsIdxs.add(index);
-                       //   }
-                      //  },
-                        onRowSelect: (index, val) async {
-                          var v = await Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return TableElement(
-                                      doc: val,
-                                      fields: tableFields,
-                                      meta: (snapshot.data as DoctypeResponse)
-                                          .docs[0],
-                                    );
-                                  },
-                                ),
-                              ) ??
-                              null;
-
-                          if (v != null) {
-                            value[index] = v;
-                            field.didChange(value);
-                          }
-                        },
-                        tableCellBuilder: (cellValue) {
-                          var isNum = double.tryParse(cellValue) != null;
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 4.0,
-                              vertical: 2.0,
-                            ),
-                            //decoration: BoxDecoration(
-                              //borderRadius:
-                                //  value.length - 1 == index[0] && index[1] == 0
-                                  //    ? BorderRadius.only(
-                                    //      bottomLeft: Radius.circular(6),
-                                      //  )
-                                   //   : value.length - 1 == index[0] &&
-                                     //         index[1] == colCount - 1
-                                       //   ? BorderRadius.only(
-                                         //     bottomRight: Radius.circular(6),
-                                           // )
-                                      //    : null,
-                            //  border: Border.all(
-                              //  width: 0.1,
-                             // ),
-
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 0.5,
-                                    color: Colors.grey.withOpacity(0.5))
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                cellValue,
-                                textAlign:
-                                    isNum ? TextAlign.end : TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 14.0,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        tableHeaderBuilder: (header) {
-                          return ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minWidth:
-                                  MediaQuery.of(context).size.width / colCount,
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 4.0,
-                                vertical: 2.0,
-                              ),
-                              decoration: BoxDecoration(
-                             //   borderRadius: index == 0
-                               //     ? BorderRadius.only(
-                                 //       topLeft: Radius.circular(6),
-                                   //   )
-                            //        : index == columns.length - 1
-                              //          ? BorderRadius.only(
-                                //            topRight: Radius.circular(6),
-                                  //        )
-                                    //    : null,
-                                border:
-                                Border.all(width: 0.1),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  header!,
-                                  textAlign: numFields.contains(header)
-                                      ? TextAlign.end
-                                      : TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: FrappePalette.grey[600],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                        columns: columns,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          FrappeFlatButton(
-                            onPressed: () {
-                              var v = {};
-                              tableFields.forEach((tableField) {
-                                v[tableField.fieldname] = "";
-                              });
-                              value.add(v);
-                              field.didChange(value);
-                            },
-                            buttonType: enums.ButtonType.secondary,
-                            title: "Add Row",
-                          ),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          FrappeFlatButton(
-                            onPressed: () {
-                              selectedRowsIdxs.forEach(
-                                (idx) {
-                                  value.removeAt(idx);
-                                },
-                              );
-                              selectedRowsIdxs.clear();
-                              field.didChange(value);
-                            },
-                            buttonType: enums.ButtonType.secondary,
-                            title: "Delete",
-                          ),
-                        ],
-                      ),
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                if (["Float", "Int"].contains(item.fieldtype)) {
+                  numFields.add(item.label);
                 }
               },
             );
-          },
-        );
+
+            colCount =
+            columns.length < colCount ? columns.length : colCount;
+
+            if (value.isEmpty) {
+              var v = {};
+
+              tableFields.forEach(
+                    (tableField) {
+                  v[tableField.fieldname] = "";
+                },
+              );
+              value.add(v);
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                JsonTable(
+                  value,
+                  allowRowHighlight: true,
+                  rowHighlightColor: FrappePalette.grey[100],
+                  onRowHold: (index) {
+                    var idx = selectedRowsIdxs.indexOf(index);
+                    if (idx != -1) {
+                      selectedRowsIdxs.removeAt(idx);
+                    } else {
+                      selectedRowsIdxs.add(index);
+                    }
+                  },
+                  onRowSelect: (index, val) async {
+                    var v = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return TableElement(
+                            doc: val,
+                            fields: tableFields,
+                            meta: (snapshot.data as DoctypeResponse)
+                                .docs[0],
+                          );
+                        },
+                      ),
+                    ) ??
+                        null;
+
+                    if (v != null) {
+                      value[index] = v;
+                      field.didChange(value);
+                    }
+                  },
+                  tableCellBuilder: (cellValue, index) {
+                    var isNum = double.tryParse(cellValue) != null;
+                    return Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 4.0,
+                        vertical: 2.0,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                        value.length - 1 == index[0] && index[1] == 0
+                            ? BorderRadius.only(
+                          bottomLeft: Radius.circular(6),
+                        )
+                            : value.length - 1 == index[0] &&
+                            index[1] == colCount - 1
+                            ? BorderRadius.only(
+                          bottomRight: Radius.circular(6),
+                        )
+                            : null,
+                        border: Border.all(
+                          width: 0.1,
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          cellValue,
+                          textAlign:
+                          isNum ? TextAlign.end : TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 14.0,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  tableHeaderBuilder: (header, index) {
+                    return ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minWidth:
+                        MediaQuery.of(context).size.width / colCount,
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 4.0,
+                          vertical: 2.0,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: index == 0
+                              ? BorderRadius.only(
+                            topLeft: Radius.circular(6),
+                          )
+                              : index == columns.length - 1
+                              ? BorderRadius.only(
+                            topRight: Radius.circular(6),
+                          )
+                              : null,
+                          border: Border.all(width: 0.1),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            header!,
+                            textAlign: numFields.contains(header)
+                                ? TextAlign.end
+                                : TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 14.0,
+                              color: FrappePalette.grey[600],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  columns: columns,
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    FrappeFlatButton(
+                      onPressed: () {
+                        var v = {};
+                        tableFields.forEach((tableField) {
+                          v[tableField.fieldname] = "";
+                        });
+                        value.add(v);
+                        field.didChange(value);
+                      },
+                      buttonType: enums.ButtonType.secondary,
+                      title: "Add Row",
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    FrappeFlatButton(
+                      onPressed: () {
+                        selectedRowsIdxs.forEach(
+                              (idx) {
+                            value.removeAt(idx);
+                          },
+                        );
+                        selectedRowsIdxs.clear();
+                        field.didChange(value);
+                      },
+                      buttonType: enums.ButtonType.secondary,
+                      title: "Delete",
+                    ),
+                  ],
+                ),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      );
+    },
+  );
 
   @override
   FormBuilderTableState<T> createState() => FormBuilderTableState<T>();

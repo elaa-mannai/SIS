@@ -8,8 +8,9 @@ import 'package:frappe_app/views/desk/desk_view.dart';
 import 'package:frappe_app/views/notification_view.dart';
 import 'package:frappe_app/views/profile_view.dart';
 import 'package:frappe_app/widgets/user_avatar.dart';
-//import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+//import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeView extends StatefulWidget {
   @override

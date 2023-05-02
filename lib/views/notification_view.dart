@@ -6,8 +6,8 @@ import 'package:frappe_app/model/notification_response.dart';
 import 'package:frappe_app/services/api/api.dart';
 import 'package:frappe_app/utils/constants.dart';
 import 'package:frappe_app/widgets/user_avatar.dart';
-//import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+//import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'package:timeago/timeago.dart' as timeago;
 
